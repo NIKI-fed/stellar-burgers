@@ -1,6 +1,8 @@
-import { combineSlices } from '@reduxjs/toolkit';
+import { combineReducers } from '@reduxjs/toolkit';
 
-import userSlice from '../slices/userSlice';
+import { ingredientsReducer } from '../slices/ingredientsSlice';
 
-export const rootReducer = combineSlices(userSlice);
+export const rootReducer = combineReducers ({
+    ingredients: ingredientsReducer
+})
 
