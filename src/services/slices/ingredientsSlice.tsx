@@ -3,19 +3,19 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TIngredient } from '@utils-types';
 
 export type TIngredientsState = {
-    ingredients: Array<TIngredient>;
-    loading: boolean;
+    ingredients: TIngredient[];
+    isLoading: boolean;
     error: string | null | undefined;
 };
 
 const initialState: TIngredientsState = {
     ingredients: [],
-    loading: true,
+    isLoading: false,
     error: null
 };
 
 export const getBurgerIngredients = createAsyncThunk(
-    'ingredients/getAllIngredients',
+    'ingredients/getIngredients',
     async () => getIngredientsApi()
 );
 
@@ -23,27 +23,33 @@ const ingredientsSlice = createSlice({
     name: 'ingredients',
     initialState,
     reducers: {},
-    selectors: {
-        getIngredientsSelector: (state) => state.ingredients,
-        getLoadingIngredientsSelector: (state) => state.loading
-    },
+    
     extraReducers: (builder) => {
         builder
         .addCase(getBurgerIngredients.pending, (state) => {
-            state.loading = true;
+            state.isLoading = true;
             state.error = null;
         })
         .addCase(getBurgerIngredients.rejected, (state, action) => {
-            state.loading = false;
+            state.isLoading = false;
             state.error = action.error.message;
         })
         .addCase(getBurgerIngredients.fulfilled, (state, action) => {
-            state.loading = false;
+            state.isLoading = false;
             state.ingredients = action.payload;
-        });
+        })
+    },
+    selectors: {
+        selectorIngredient: (state) => state.ingredients,
+        selectorIngredientIsLoading: (state) => state.isLoading,
+        selectorIngredientError: (state) => state.error
     }
 });
 
 export const ingredientsReducer = ingredientsSlice.reducer;
 
-export const { getIngredientsSelector, getLoadingIngredientsSelector } = ingredientsSlice.selectors;
+export const {
+            selectorIngredient,
+            selectorIngredientIsLoading,
+            selectorIngredientError
+            } = ingredientsSlice.selectors;
