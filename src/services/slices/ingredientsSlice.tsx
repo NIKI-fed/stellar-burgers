@@ -30,13 +30,13 @@ const ingredientsSlice = createSlice({
             state.isLoading = true;
             state.error = null;
         })
-        .addCase(getBurgerIngredients.rejected, (state, action) => {
-            state.isLoading = false;
-            state.error = action.error.message;
-        })
         .addCase(getBurgerIngredients.fulfilled, (state, action) => {
             state.isLoading = false;
             state.ingredients = action.payload;
+        })
+        .addCase(getBurgerIngredients.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.error.message;
         })
     },
     selectors: {

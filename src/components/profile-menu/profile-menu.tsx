@@ -5,6 +5,7 @@ import { ProfileMenuUI } from '@ui';
 export const ProfileMenu: FC = () => {
   const { pathname } = useLocation();
 
+  // TODO Дописать
   const handleLogout = () => {};
 
   return <ProfileMenuUI handleLogout={handleLogout} pathname={pathname} />;

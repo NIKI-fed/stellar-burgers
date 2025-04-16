@@ -35,15 +35,15 @@ const feedSlice = createSlice({
             state.isLoading = true;
             state.error = null;
         })
-        .addCase(getFeeds.rejected, (state, action) => {
-            state.isLoading = false;
-            state.error = action.error.message;
-        })
         .addCase(getFeeds.fulfilled, (state, action) => {
             state.feed = action.payload;
             state.feed.total = action.payload.total;
             state.feed.totalToday = action.payload.totalToday;
             state.isLoading = false;
+        })
+        .addCase(getFeeds.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.error.message;
         })
     },
     selectors: {
