@@ -80,8 +80,6 @@ export const {
     resetConstructor
 } = burgerConstructorSlice.actions;
 
-console.log(burgerConstructorSlice.actions)
-
 export const burgerConstructorReducer = burgerConstructorSlice.reducer;
 
 export const {  selectorBurgerConstructor,

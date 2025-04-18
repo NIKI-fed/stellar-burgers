@@ -4,8 +4,9 @@ import React, { useEffect }  from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../services/store';
 import { getBurgerIngredients } from '../../services/slices/ingredientsSlice';
+import { checkUserAuthThunk, selectorAuthUser } from '../../services/slices/userSlice';
 import { AppHeader, Modal, OrderInfo, IngredientDetails } from '@components';
-//import { ProtectedRoute } from '../protected-route/protected-route';
+import { ProtectedRoute } from '../protected-route/protected-route';
 import {
         ConstructorPage,
         Feed,
@@ -23,50 +24,97 @@ const App = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
-  const backgroundPosition = location.state?.backgroundLocation;
+  const background = location.state?.background;
 
   // Подгружаем данные для начальной отрисовки
   useEffect(() => {
     dispatch(getBurgerIngredients());
-  }, []);
+    dispatch(checkUserAuthThunk());
+    // console.log(getBurgerIngredients, 'dsffsd')
+  }, [dispatch]);
 
-  // Создаём маршруты модальных окон
-  const renderModalRoute = (path: string, title: string, onClose: () => void, children: JSX.Element) => {
-    return (
-      <Route path={path} element={<Modal title={title} onClose={onClose}>{children}</Modal>}> </Route>
-    )
-  }
+  const isAuthChecked = useSelector(selectorAuthUser);
+  // console.log('ghj',isAuthChecked, checkUserAuthThunk())
+
+  // Функция закрытия модального окна
+  const closeModal = () => {
+    navigate(-1);
+  };
 
   return (
     <div className={styles.app}>
     <AppHeader/>
 
-    <Routes location={backgroundPosition || location}>
+    <Routes location={background || location}>
 
         <Route path='/' element={ <ConstructorPage/> } />
         <Route path='/feed' element={ <Feed/> } />
         <Route path='*' element={ <NotFound404 />} />
 
         {/* Защищённые роуты */}
-        <Route path='/login' element={ <Login/> } />
-        <Route path='/register' element={ <Register/> } />
-        <Route path='/forgot-password' element={ <ForgotPassword/> } />
-        <Route path='/reset-password' element={ <ResetPassword/> } />
-        <Route path='/profile' element={ <Profile/> } />
-        <Route path='/profile/orders' element={ <ProfileOrders/> } />
+        <Route path='/login' element={
+          <ProtectedRoute publicRoute>
+            <Login/>
+          </ProtectedRoute>} />
+
+        <Route path='/register' element={
+          <ProtectedRoute publicRoute>
+            <Register/>
+          </ProtectedRoute>} />
+
+        <Route path='/forgot-password' element={
+          <ProtectedRoute publicRoute>
+            <ForgotPassword/>
+          </ProtectedRoute>} />
+
+        <Route path='/reset-password' element={
+          <ProtectedRoute publicRoute>
+            <ResetPassword/>
+          </ProtectedRoute>} />
+
+        <Route path='/profile' element={
+          <ProtectedRoute publicRoute>
+            <Profile/>
+          </ProtectedRoute>} />
+
+        <Route path='/profile/orders' element={
+          <ProtectedRoute publicRoute>
+            <ProfileOrders/>
+          </ProtectedRoute>} />
         
-        {/* Модальные окна */}
-        {renderModalRoute('/feed/:number', 'Детали заказа', () => navigate('/feed'), <OrderInfo/>)};
-        {renderModalRoute('/ingredients/:id', 'Ингредиенты', () => navigate('/'), <IngredientDetails/>)};
-        {renderModalRoute('/profile/orders/:number', 'Детали заказа защ.', () => navigate('/profile/orders/'), <OrderInfo/>)};
-      
     </Routes>
 
-    {backgroundPosition && (
+    {background && (
       <Routes>
-      {renderModalRoute('/feed/:number', 'Детали заказа', () => navigate('/feed'), <OrderInfo/>)};
-      {renderModalRoute('/ingredients/:id', 'Ингредиенты', () => navigate('/'), <IngredientDetails/>)};
-      {renderModalRoute('/profile/orders/:number', 'Детали заказа защ.', () => navigate('/profile/orders/'), <OrderInfo/>)};
+
+        <Route
+          path='/feed/:number'
+          element={
+            <Modal title='Детали заказа' onClose={closeModal}>
+                <OrderInfo />
+            </Modal>
+          }
+        />
+
+        <Route
+          path='/ingredients/:id'
+          element={
+            <Modal title='Ингредиенты' onClose={closeModal}>
+                <IngredientDetails/>
+            </Modal>
+          }
+        />
+
+        <Route
+          path='/profile/orders/:number'
+          element={
+            <ProtectedRoute publicRoute>
+              <Modal title='История заказов' onClose={closeModal}>
+                  <OrderInfo/>
+              </Modal>
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     )}
     </div>

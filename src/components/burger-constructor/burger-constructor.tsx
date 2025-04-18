@@ -3,36 +3,43 @@ import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useDispatch, useSelector } from '../../services/store';
 import { selectorBurgerConstructor, resetConstructor } from '../../services/slices/burgerConstructorSlice';
-// import { postOrder, getOrderNumber, selectorOrders, selectorQuery } from '../../services/slices/createOrderSlice';
-// import { selectProfileUser } from '../../services/slices/profileUserSlice';
+import { postOrder, clearOrders, selectorOrder, selectorOrderIsLoading } from '../../services/slices/createOrderSlice';
+import { selectorUser } from '../../services/slices/userSlice';
 import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
   
-  
-  
-  /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
-  const constructorItems = {
-    bun: {
-      price: 0
-    },
-    ingredients: []
-  };
+    
+  /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора (ВЫПОЛНЕНО)*/
 
-  const orderRequest = false
-  const orderModalData = null;
-
-  // const constructorItems = useSelector(selectorBurgerConstructor);
-  // const orderRequest = useSelector(selectorQuery);
-  // const orderModalData = useSelector(selectorOrders);
+  const constructorItems = useSelector(selectorBurgerConstructor);
+  const orderRequest = useSelector(selectorOrderIsLoading);
+  const orderModalData = useSelector(selectorOrder);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const { user } = useSelector(selectProfileUser);
+  const user = useSelector(selectorUser);
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
+
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+
+    dispatch(postOrder(
+      [
+        constructorItems.bun._id,
+        ...constructorItems.ingredients.map((item) => item._id),
+        constructorItems.bun._id
+      ])
+    );
   };
-  const closeOrderModal = () => {};
+
+  const closeOrderModal = () => {
+    dispatch(resetConstructor());
+    dispatch(clearOrders());
+  }
 
   const price = useMemo(
     () =>
