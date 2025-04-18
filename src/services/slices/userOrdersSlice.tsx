@@ -14,40 +14,40 @@ export const initialState: TActivOrderState = {
     error: null
 };
 
-export const getActiveOrder = createAsyncThunk(
+export const getUserOrders = createAsyncThunk(
     'ActiveOrders/get',
     async () => getOrdersApi()
 );
 
-export const activeOrderSlice = createSlice({
-    name: 'activeOrder',
+export const userOrdersSlice = createSlice({
+    name: 'userOrders',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(getActiveOrder.pending, (state) => {
+            .addCase(getUserOrders.pending, (state) => {
                 state.orders = [];
                 state.isLoading = true;
                 state.error = null;
             })
-            .addCase(getActiveOrder.fulfilled, (state, action) => {
+            .addCase(getUserOrders.fulfilled, (state, action) => {
                 state.orders = action.payload;
                 state.isLoading = false;
             })
-            .addCase(getActiveOrder.rejected, (state, action) => {
+            .addCase(getUserOrders.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.error.message;
             })
     },
     selectors: {
-        selectorActiveOrder: (state) => state.orders,
-        selectorActiveOrderIsLoading: (state) => state.isLoading
+        selectorUserOrders: (state) => state.orders,
+        selectorUserOrdersIsLoading: (state) => state.isLoading
     }
 });
 
-export const activeOrderReducer = activeOrderSlice.reducer;
+export const userOrdersReducer = userOrdersSlice.reducer;
 
 export const {
-    selectorActiveOrder,
-    selectorActiveOrderIsLoading
-} = activeOrderSlice.selectors;
+    selectorUserOrders,
+    selectorUserOrdersIsLoading
+} = userOrdersSlice.selectors;

@@ -104,12 +104,6 @@ export const updateUserThunk = createAsyncThunk(
     }
 )
 
-// export const forgotPassword = createAsyncThunk(
-//     'user/forgotPassword',
-//     async (data: { email: string }) => forgotPasswordApi(data));
-
-// export const resetPassword = createAsyncThunk('user/resetPassword', async (data: { password: string; token: string }) => resetPasswordApi(data));
-
  // Создаём слайс пользователя
 const userSlice = createSlice({
     name: 'user',
@@ -178,8 +172,7 @@ const userSlice = createSlice({
             .addCase(loginUserThunk.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(loginUserThunk.fulfilled,(state, action) => {
-                // state.user = action.payload;
+            .addCase(loginUserThunk.fulfilled,(state) => {
                 state.isLoading = false;
                 state.isAuth = true;
             })

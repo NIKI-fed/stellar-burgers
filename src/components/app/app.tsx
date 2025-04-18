@@ -30,11 +30,7 @@ const App = () => {
   useEffect(() => {
     dispatch(getBurgerIngredients());
     dispatch(checkUserAuthThunk());
-    // console.log(getBurgerIngredients, 'dsffsd')
   }, [dispatch]);
-
-  const isAuthChecked = useSelector(selectorAuthUser);
-  // console.log('ghj',isAuthChecked, checkUserAuthThunk())
 
   // Функция закрытия модального окна
   const closeModal = () => {
@@ -51,7 +47,8 @@ const App = () => {
         <Route path='/feed' element={ <Feed/> } />
         <Route path='*' element={ <NotFound404 />} />
 
-        {/* Защищённые роуты */}
+        {/* Защищённые роуты
+        props publicRoute - компонент не требует переадресации в случае, если пользователь не авторизован */}
         <Route path='/login' element={
           <ProtectedRoute publicRoute>
             <Login/>
@@ -73,12 +70,12 @@ const App = () => {
           </ProtectedRoute>} />
 
         <Route path='/profile' element={
-          <ProtectedRoute publicRoute>
+          <ProtectedRoute>
             <Profile/>
           </ProtectedRoute>} />
 
         <Route path='/profile/orders' element={
-          <ProtectedRoute publicRoute>
+          <ProtectedRoute>
             <ProfileOrders/>
           </ProtectedRoute>} />
         
@@ -108,7 +105,7 @@ const App = () => {
         <Route
           path='/profile/orders/:number'
           element={
-            <ProtectedRoute publicRoute>
+            <ProtectedRoute>
               <Modal title='История заказов' onClose={closeModal}>
                   <OrderInfo/>
               </Modal>

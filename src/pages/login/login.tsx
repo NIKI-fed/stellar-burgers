@@ -19,7 +19,8 @@ export const Login: FC = () => {
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(loginUserThunk({email: email, password: password}));
-    navigate(location.state?.from?.pathname || '/', { replace: true });
+    console.log('нажал войти')
+    navigate('/', { replace: true });
   };
 
   return (
