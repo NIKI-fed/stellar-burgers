@@ -172,7 +172,8 @@ const userSlice = createSlice({
             .addCase(loginUserThunk.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(loginUserThunk.fulfilled,(state) => {
+            .addCase(loginUserThunk.fulfilled,(state, action) => {
+                state.user = action.payload;
                 state.isLoading = false;
                 state.isAuth = true;
             })

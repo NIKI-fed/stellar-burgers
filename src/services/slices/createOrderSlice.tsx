@@ -14,16 +14,10 @@ export const initialState: TCreateOrdersState = {
 };
 
 // Отправить заказ на сервер
-export const postOrder = createAsyncThunk(
-  'order/postOrder',
-  async (data: string[]) => await orderBurgerApi(data)
-);
+export const postOrder = createAsyncThunk('order/postOrder', orderBurgerApi);
 
 // Получить номер заказа
-export const getOrderNumber = createAsyncThunk(
-  'order/retrieveById',
-  async (data: number) => getOrderByNumberApi(data)
-);
+export const getOrderNumber = createAsyncThunk('order/retrieveById', getOrderByNumberApi);
 
 export const createOrderSlice = createSlice({
   name: 'createOrders',

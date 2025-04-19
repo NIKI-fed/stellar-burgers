@@ -3,24 +3,22 @@ import { LoginUI } from '@ui-pages';
 import { useDispatch, useSelector } from '../../services/store';
 import { loginUserThunk, selectorIsLoading } from '../../services/slices/userSlice';
 import { Preloader } from '@ui';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useForm } from '../../services/hooks/useForm';
 
 // ВЫПОЛНЕНО
 export const Login: FC = () => {
 
-  const location = useLocation();
-  const navigate = useNavigate();
   const isLoading = useSelector(selectorIsLoading); 
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  // const { values, handleChange, setValues } = useForm({});
+
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(loginUserThunk({email: email, password: password}));
-    console.log('нажал войти')
-    navigate('/', { replace: true });
   };
 
   return (
@@ -38,4 +36,20 @@ export const Login: FC = () => {
       }
     </>
   );
+
+  // return (
+  //   <>
+  //   { isLoading
+  //     ? <Preloader />
+  //     : <LoginUI
+  //         errorText=''
+  //         email={values.email}
+  //         setEmail={handleChange}
+  //         password={values.password}
+  //         setPassword={handleChange}
+  //         handleSubmit={handleSubmit}
+  //       />
+  //     }
+  //   </>
+  // );
 };

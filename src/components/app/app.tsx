@@ -52,33 +52,53 @@ const App = () => {
         <Route path='/login' element={
           <ProtectedRoute publicRoute>
             <Login/>
-          </ProtectedRoute>} />
+          </ProtectedRoute>}
+        />
 
         <Route path='/register' element={
           <ProtectedRoute publicRoute>
             <Register/>
-          </ProtectedRoute>} />
+          </ProtectedRoute>}
+        />
 
         <Route path='/forgot-password' element={
           <ProtectedRoute publicRoute>
             <ForgotPassword/>
-          </ProtectedRoute>} />
+          </ProtectedRoute>}
+        />
 
         <Route path='/reset-password' element={
           <ProtectedRoute publicRoute>
             <ResetPassword/>
-          </ProtectedRoute>} />
+          </ProtectedRoute>}
+        />
 
         <Route path='/profile' element={
           <ProtectedRoute>
             <Profile/>
-          </ProtectedRoute>} />
+          </ProtectedRoute>}
+        />
 
         <Route path='/profile/orders' element={
           <ProtectedRoute>
             <ProfileOrders/>
-          </ProtectedRoute>} />
+          </ProtectedRoute>}
+        />
+
+        <Route path='/feed/:number' element={
+            <OrderInfo />}
+        />
         
+        <Route path='/ingredients/:id' element={
+            <IngredientDetails/>}
+        />
+
+        <Route path='/profile/orders/:number' element={
+          <ProtectedRoute>
+            <OrderInfo/>
+          </ProtectedRoute>}
+        />
+
     </Routes>
 
     {background && (
