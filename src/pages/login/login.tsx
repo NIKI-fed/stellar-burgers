@@ -3,7 +3,42 @@ import { LoginUI } from '@ui-pages';
 import { useDispatch, useSelector } from '../../services/store';
 import { loginUserThunk, selectorIsLoading } from '../../services/slices/userSlice';
 import { Preloader } from '@ui';
-import { useForm } from '../../services/hooks/useForm';
+// import { useForm } from '../../services/hooks/useForm';
+
+
+// Выполнено с использованием кастомного хука useForm
+// export const Login: FC = () => {
+
+//   const isLoading = useSelector(selectorIsLoading); 
+//   const dispatch = useDispatch();
+
+//   const { values, handleChange, setValues } = useForm({email: '', password: ''});
+
+//   console.log(values)
+  
+//   const handleSubmit = (e: SyntheticEvent) => {
+//     e.preventDefault();
+//     dispatch(loginUserThunk(values));
+//   };
+  
+//   return (
+//     <>
+//     { isLoading
+//       ? <Preloader />
+//       : <LoginUI
+//           errorText=''
+//           email={values.email}
+//           password={values.password}
+//           setEmail={setValues}
+//           setPassword={setValues}
+//           handleSubmit={handleSubmit}
+//         />
+//       }
+//     </>
+//   );
+// };
+
+
 
 // ВЫПОЛНЕНО
 export const Login: FC = () => {
@@ -13,8 +48,6 @@ export const Login: FC = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  // const { values, handleChange, setValues } = useForm({});
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -36,20 +69,4 @@ export const Login: FC = () => {
       }
     </>
   );
-
-  // return (
-  //   <>
-  //   { isLoading
-  //     ? <Preloader />
-  //     : <LoginUI
-  //         errorText=''
-  //         email={values.email}
-  //         setEmail={handleChange}
-  //         password={values.password}
-  //         setPassword={handleChange}
-  //         handleSubmit={handleSubmit}
-  //       />
-  //     }
-  //   </>
-  // );
 };
