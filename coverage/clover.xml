@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1746051737822" clover="3.2.0">
-  <project timestamp="1746051737822" name="All files">
-    <metrics statements="112" coveredstatements="30" conditionals="58" coveredconditionals="0" methods="46" coveredmethods="2" elements="216" coveredelements="32" complexity="0" loc="112" ncloc="112" packages="2" files="3" classes="3"/>
+<coverage generated="1746309215547" clover="3.2.0">
+  <project timestamp="1746309215547" name="All files">
+    <metrics statements="112" coveredstatements="34" conditionals="58" coveredconditionals="0" methods="46" coveredmethods="4" elements="216" coveredelements="38" complexity="0" loc="112" ncloc="112" packages="2" files="3" classes="3"/>
     <package name="services.slices">
-      <metrics statements="18" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="2"/>
+      <metrics statements="18" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="4"/>
       <file name="ingredientsSlice.tsx" path="C:\Users\NIKI\dev\stellar-burgers\src\services\slices\ingredientsSlice.tsx">
-        <metrics statements="18" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="2"/>
+        <metrics statements="18" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="4"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
@@ -15,10 +15,10 @@
         <line num="28" count="1" type="stmt"/>
         <line num="30" count="1" type="stmt"/>
         <line num="31" count="1" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
         <line num="43" count="0" type="stmt"/>
         <line num="44" count="0" type="stmt"/>
         <line num="45" count="0" type="stmt"/>
