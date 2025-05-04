@@ -55,9 +55,9 @@ const ingredientSauceTest: TConstructorIngredient = {
     image_mobile: "https://code.s3.yandex.net/react/code/sauce-04-mobile.png"
 };
 
-describe('Тестирование burgerConstructorSlice', function () {
+describe('Тестирование burgerConstructorSlice', () => {
 
-    test('add Ingredient', function () {
+    test('add Ingredient', () => {
         const newState = burgerConstructorReducer(
             initialState,
             addIngredientInConstructor(ingredientTest)
@@ -71,7 +71,7 @@ describe('Тестирование burgerConstructorSlice', function () {
     });
 
 
-    test('add bun', function () {
+    test('add bun', () => {
         const newState = burgerConstructorReducer(
             initialState,
             addIngredientInConstructor(bunTest)
@@ -95,8 +95,8 @@ describe('Тестирование burgerConstructorSlice', function () {
         };
 
         const newState = burgerConstructorReducer(
-        testState,
-        removeIngredientFromConstructor(0)
+            testState,
+            removeIngredientFromConstructor(0)
         );
 
         expect(newState.constructorBurger.ingredients).toHaveLength(0);
@@ -116,10 +116,12 @@ describe('Тестирование burgerConstructorSlice', function () {
             testState,
             moveUpIngredientInConstructor(ingredientSauceTest)
         );
+
         expect(newState.constructorBurger.ingredients).toEqual([ingredientSauceTest, ingredientTest]);
     });
 
     test('move Down Ingredient', () => {
+
         const testState: TBurgerConstructorState = {
             constructorBurger: {
                 bun: null,
@@ -133,6 +135,7 @@ describe('Тестирование burgerConstructorSlice', function () {
             testState,
             moveDownIngredientInConstructor(ingredientTest)
         );
+        
         expect(newState.constructorBurger.ingredients).toEqual([ingredientSauceTest, ingredientTest]);
     });
 

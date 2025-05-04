@@ -4,16 +4,16 @@ import {
     getFeeds
 } from '../services/slices/feedSlice';
 
-describe('Тестирование feedSlice', function () {
+describe('Тестирование feedSlice', () => {
 
-    test('getFeeds pending', function () {
+    test('getFeeds pending', () => {
         const newState = feedReducer( { ...initialState }, getFeeds.pending(''));
         
         expect(newState.isLoading).toEqual(true);
         expect(newState.error).toEqual(null);
     });
 
-    test('getFeeds fulfilled', function () {
+    test('getFeeds fulfilled', () => {
         const testFeed = {
             orders: [
                         {
@@ -49,7 +49,7 @@ describe('Тестирование feedSlice', function () {
         expect(newState.error).toEqual(testState.error);
     });
 
-    test('getFeeds rejected', function () {
+    test('getFeeds rejected', () => {
         const testError = new Error('Error message');
         const newState = feedReducer(
             { ...initialState },

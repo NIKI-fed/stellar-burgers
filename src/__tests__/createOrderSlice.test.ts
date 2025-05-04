@@ -19,7 +19,7 @@ const orderData = {
     ]
 }
 
-describe('Тестирование createOrderSlice', function () {
+describe('Тестирование createOrderSlice', () => {
     
     test('postOrder pending', () => {
         const newState = createOrderReducer(
@@ -48,6 +48,7 @@ describe('Тестирование createOrderSlice', function () {
             { ...initialState },
             postOrder.fulfilled(testOrder, '', ['1'])
         );
+
         expect(newState.order).toEqual(testState.order);
         expect(newState.isLoading).toEqual(false);
     });
@@ -68,6 +69,7 @@ describe('Тестирование createOrderSlice', function () {
             { ...initialState },
             getOrderNumber.pending('', 0)
         );
+
         expect(newState.isLoading).toEqual(true);
     });
 
@@ -83,6 +85,7 @@ describe('Тестирование createOrderSlice', function () {
             { ...initialState },
             getOrderNumber.fulfilled(testOrder, '', 1)
         );
+
         expect(newState.order).toEqual(testOrder.orders[0]);
         expect(newState.isLoading).toEqual(false);
     });

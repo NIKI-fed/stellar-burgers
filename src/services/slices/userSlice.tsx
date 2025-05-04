@@ -13,7 +13,7 @@ import {
         logoutApi
         } from "@api";
 
- //  Типизируем начальное состояние пользователя
+//  Типизируем начальное состояние пользователя
 type TUserState = {
     user: TUser | null;
     isAuth: boolean,
@@ -21,15 +21,15 @@ type TUserState = {
     error: string | null | undefined;
 }
 
- // Определяем начальное состояние пользователя
-const initialState: TUserState = {
+// Определяем начальное состояние пользователя
+export const initialState: TUserState = {
     user: null,
     isAuth: false,
     isLoading: false,
     error: null,
 };
 
- // Функции для работы с данными пользователя
+// Функции для работы с данными пользователя
 
 // Функция регистрации
 export const registerUserThunk = createAsyncThunk(

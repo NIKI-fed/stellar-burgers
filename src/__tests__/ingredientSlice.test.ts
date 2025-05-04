@@ -1,7 +1,8 @@
-import {    getBurgerIngredients,
-            ingredientsReducer,
-            initialState
-        } from "../services/slices/ingredientsSlice"; 
+import {    
+    getBurgerIngredients,
+    ingredientsReducer,
+    initialState
+} from "../services/slices/ingredientsSlice"; 
 
 describe('Тестирование ingredientsSlice', () => {
     
@@ -40,6 +41,7 @@ describe('Тестирование ingredientsSlice', () => {
         { ...initialState },
         getBurgerIngredients.fulfilled(testIngredient, '')
     );
+
         expect(newState.isLoading).toEqual(false);
         expect(newState.ingredients).toEqual(testState.ingredients);
     });
@@ -54,4 +56,5 @@ describe('Тестирование ingredientsSlice', () => {
         expect(newState.isLoading).toEqual(false);
         expect(newState.error).toEqual(testError.message);
     });
+
 });
