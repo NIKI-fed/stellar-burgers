@@ -10,6 +10,7 @@ describe('Тестирование ingredientsSlice', () => {
             { ...initialState },
             getBurgerIngredients.pending('')
         );
+        
         expect(newState.isLoading).toEqual(true);
         expect(newState.error).toEqual(null);
     }); 

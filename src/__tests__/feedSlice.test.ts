@@ -28,7 +28,6 @@ describe('Тестирование feedSlice', function () {
                                     '643d69a5c3f7b9001cfa0942',
                                     '643d69a5c3f7b9001cfa0944'
                                     ]
-                                    
                         }
                     ],
             total: 1,
