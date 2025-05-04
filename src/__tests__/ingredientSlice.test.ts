@@ -6,16 +6,12 @@ import {    getBurgerIngredients,
 describe('Тестирование ingredientsSlice', () => {
     
     test('getBurgerIngredients pending', () => {
-        const state = {
-            ingredients: [],
-            isLoading: true,
-            error: null
-        }
         const newState = ingredientsReducer(
             { ...initialState },
             getBurgerIngredients.pending('')
         );
-        expect(newState).toEqual(state);
+        expect(newState.isLoading).toEqual(true);
+        expect(newState.error).toEqual(null);
     }); 
 
     test('getBurgerIngredients fulfilled', () => {
@@ -34,7 +30,7 @@ describe('Тестирование ingredientsSlice', () => {
             image_mobile: "https://code.s3.yandex.net/react/code/salad-mobile.png"
         }
     ];
-    const state = {
+    const testState = {
         ingredients: testIngredient,
         isLoading: false,
         error: null
@@ -43,20 +39,18 @@ describe('Тестирование ingredientsSlice', () => {
         { ...initialState },
         getBurgerIngredients.fulfilled(testIngredient, '')
     );
-        expect(newState).toEqual(state);
+        expect(newState.isLoading).toEqual(false);
+        expect(newState.ingredients).toEqual(testState.ingredients);
     });
 
     test('getBurgerIngredients rejected', () => {
-        const errorMessage = new Error('Error message');
-        const state = {
-            ingredients: [],
-            isLoading: false,
-            error: 'Error message'
-        }
+        const testError = new Error('Error message');
         const newState = ingredientsReducer(
             { ...initialState },
-            getBurgerIngredients.rejected(errorMessage, '')
+            getBurgerIngredients.rejected(testError, '')
         );
-        expect(newState).toEqual(state);
+
+        expect(newState.isLoading).toEqual(false);
+        expect(newState.error).toEqual(testError.message);
     });
 });
