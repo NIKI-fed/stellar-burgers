@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
   
-    
   /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора (ВЫПОЛНЕНО)*/
 
   const constructorItems = useSelector(selectorBurgerConstructor);

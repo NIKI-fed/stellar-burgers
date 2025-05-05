@@ -105,7 +105,7 @@ export const updateUserThunk = createAsyncThunk(
 )
 
  // Создаём слайс пользователя
-const userSlice = createSlice({
+export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
@@ -166,7 +166,7 @@ const userSlice = createSlice({
             })
             .addCase(registerUserThunk.rejected, (state, action) => {
                 state.isLoading = false;
-                state.error = action.error.message;;
+                state.error = action.error.message;
             })
             // Обработка авторизации пользователя
             .addCase(loginUserThunk.pending, (state) => {
@@ -177,8 +177,9 @@ const userSlice = createSlice({
                 state.isLoading = false;
                 state.isAuth = true;
             })
-            .addCase(loginUserThunk.rejected, (state) => {
+            .addCase(loginUserThunk.rejected, (state, action) => {
                 state.isLoading = false;
+                state.error = action.error.message;
             })
             // Обработка выхода пользователя
             .addCase(logoutUserThunk.pending, (state) => {
@@ -187,6 +188,7 @@ const userSlice = createSlice({
             .addCase(logoutUserThunk.fulfilled, (state) => {
                 state.user = null;
                 state.isLoading = false;
+                state.isAuth = false
             })
             .addCase(logoutUserThunk.rejected, (state) => {
                 state.isLoading = false;

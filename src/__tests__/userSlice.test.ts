@@ -88,6 +88,44 @@ describe('Тестирование userSlice', () => {
 
 //--------------------------------------
 
+    test('updateUserThunk pending', () => {
+        const newState = userReducer(
+            { ...initialState },
+            updateUserThunk.pending('', { email: '', name: '', password: '' })
+        );
+
+        expect(newState.isLoading).toEqual(true);
+    });
+
+    test('updateUserThunk fulfilled', () => {
+        const testState = {
+            user: testUser.user,
+            isAuth: true,
+            isLoading: false,
+            error: null
+        };
+        const newState = userReducer(
+            { ...initialState },
+            updateUserThunk.fulfilled(testUser, '', { email: 'test@mail.ru', name: 'TestUser', password: 'testPassword' })
+        );
+
+        expect(newState.user).toEqual(testState.user);
+        expect(newState.isLoading).toEqual(false);
+    });
+
+    test('updateUserThunk rejected', () => {
+        const testError = new Error('test error message');
+        const newState = userReducer(
+            { ...initialState },
+            updateUserThunk.rejected(testError, '', { email: '', name: '', password: '' })
+        );
+
+        expect(newState.isLoading).toEqual(false);
+        expect(newState.error).toEqual(testError.message);
+    });
+
+//--------------------------------------
+
     test('registerUserThunk pending', () => {
         const newState = userReducer(
             { ...initialState },
@@ -98,23 +136,12 @@ describe('Тестирование userSlice', () => {
     });
 
     test('registerUserThunk fulfilled', () => {
-        const testUser = {
-            success: true,
-            accessToken: 'testToken',
-            refreshToken: 'testRefreshToken',
-            user: {
-                email: 'user@test.ru',
-                name: 'testUser'
-            }
-        };
-
         const testState = {
             user: testUser.user,
             isAuth: true,
             isLoading: false,
             error: null
         };
-
         const newState = userReducer(
             { ...initialState },
             registerUserThunk.fulfilled(testUser, '', { email: 'user@test.ru', name: 'testUser', password: 'testPassword' })
@@ -138,5 +165,73 @@ describe('Тестирование userSlice', () => {
 
 //--------------------------------------
 
+    test('loginUserThunk pending', () => {
+        const newState = userReducer(
+            { ...initialState },
+            loginUserThunk.pending('', { email: '', password: '' })
+        );
+
+        expect(newState.isLoading).toEqual(true);
+    });
+
+    test('loginUserThunk fulfilled', () => {
+        const testState = {
+            user: testUser.user,
+            isAuth: true,
+            isLoading: false,
+            error: null
+        };
+        const newState = userReducer(
+            { ...initialState },
+            loginUserThunk.fulfilled(testUser.user, '', { email: 'test@mail.ru', password: 'testPassword' })
+        );
+
+        expect(newState.user).toEqual(testState.user);
+        expect(newState.isLoading).toEqual(false);
+        expect(newState.isAuth).toEqual(true);
+    });
+
+    test('loginUserThunk rejected', () => {
+        const testError = new Error('test error message');
+        const newState = userReducer(
+            { ...initialState },
+            loginUserThunk.rejected(testError, '', { email: '', password: '' })
+        );
+
+        expect(newState.isLoading).toEqual(false);
+        expect(newState.error).toEqual(testError.message);
+    });
+
+//--------------------------------------
+
+    test('logoutUserThunk pending', () => {
+        const newState = userReducer(
+            { ...initialState },
+            logoutUserThunk.pending('')
+        );
+
+        expect(newState.isLoading).toEqual(true);
+    });
+    
+    test('logoutUserThunk rejected', () => {
+        const testError = new Error('test error message');
+        const newState = userReducer(
+            { ...initialState },
+            logoutUserThunk.rejected(testError, '')
+        );
+
+        expect(newState.isLoading).toEqual(false);
+    });
+    
+    test('logoutUserThunk fulfilled', () => {
+        const newState = userReducer(
+            { ...initialState },
+            logoutUserThunk.fulfilled(undefined, '')
+        );
+
+        expect(newState.user).toEqual(null);
+        expect(newState.isLoading).toEqual(false);
+        expect(newState.isAuth).toEqual(false);
+    });
 
 });

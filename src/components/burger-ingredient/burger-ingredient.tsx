@@ -13,7 +13,7 @@ export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(
     const handleAdd = () => {
       dispatch(addIngredientInConstructor(ingredient))
     };
-    console.log(ingredient)
+    // console.log(ingredient)
 
     return (
       <BurgerIngredientUI
