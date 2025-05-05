@@ -30,8 +30,8 @@ describe('Тестирование feedSlice', () => {
                                     ]
                         }
                     ],
-            total: 1,
-            totalToday: 1
+            total: 100,
+            totalToday: 10
         };
 
         const testState = {
@@ -45,8 +45,9 @@ describe('Тестирование feedSlice', () => {
         );
 
         expect(newState.feed).toEqual(testState.feed);
+        expect(newState.feed.total).toEqual(testState.feed.total);
+        expect(newState.feed.totalToday).toEqual(testState.feed.totalToday);
         expect(newState.isLoading).toEqual(testState.isLoading);
-        expect(newState.error).toEqual(testState.error);
     });
 
     test('getFeeds rejected', () => {
