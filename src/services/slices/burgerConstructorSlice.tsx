@@ -7,14 +7,14 @@ type TConstructor = {
 }
 
 // Определяем тип состояния конструктора бургера
-type TBurgerConstructorState = {
+export type TBurgerConstructorState = {
     constructorBurger: TConstructor;
     isLoading: boolean;
     error: string | null | undefined;
 }
 
 // Записываем начальное состояние конструктора бургера
-const initialState: TBurgerConstructorState = {
+export const initialState: TBurgerConstructorState = {
     constructorBurger: {
         bun: null,
         ingredients: []

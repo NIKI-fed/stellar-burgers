@@ -8,7 +8,7 @@ export type TIngredientsState = {
     error: string | null | undefined;
 };
 
-const initialState: TIngredientsState = {
+export const initialState: TIngredientsState = {
     ingredients: [],
     isLoading: false,
     error: null
@@ -19,7 +19,7 @@ export const getBurgerIngredients = createAsyncThunk(
     async () => getIngredientsApi()
 );
 
-const ingredientsSlice = createSlice({
+export const ingredientsSlice = createSlice({
     name: 'ingredients',
     initialState,
     reducers: {},
